@@ -5,7 +5,7 @@ interface RideType {
 
 class Carpool implements RideType {
     public double getRate() {
-        return 0.5; // Cheaper rate
+        return 0.5;
     }
 
     public String getType() {
@@ -21,7 +21,6 @@ class LuxuryRide implements RideType {
         return "Luxury";
     }
 }
-
 class BikeRide implements RideType {
     public double getRate() {
         return 1.0; // Moderate rate

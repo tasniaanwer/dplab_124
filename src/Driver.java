@@ -9,8 +9,7 @@ class Driver extends User {
         this.location = location;
         this.isAvailable = true;
     }
-
-    public void acceptRide(Trip trip) {
+    public void acceptRide() {
         if (isAvailable) {
             System.out.println(name + " accepted the ride.");
             isAvailable = false;
@@ -18,11 +17,6 @@ class Driver extends User {
             System.out.println("Driver is not available.");
         }
     }
-
-    public void updateLocation(String newLocation) {
-        this.location = newLocation;
-    }
-
     public void startTrip() {
         System.out.println("Trip started by " + name);
     }
