@@ -1,9 +1,7 @@
-class Latte implements Beverage {
-    public String getDescription() {
-        return "Latte";
+class Latte extends AbstractBeverage {
+    public Latte()
+    {
+        super("Latte", 300);
     }
 
-    public double cost() {
-        return 200;
-    }
 }
