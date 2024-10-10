@@ -1,15 +1,9 @@
-class WhippedCream implements CondimentDecorator {
-    private Beverage beverage;
-
-    public WhippedCream(Beverage beverage) {
-        this.beverage = beverage;
+public class Cream extends Condiment
+{
+    public Cream()
+    {
+        super("Cream", 30);
     }
 
-    public String getDescription() {
-        return beverage.getDescription() + ", Whipped Cream";
-    }
 
-    public double cost() {
-        return 50 + beverage.cost();
-    }
 }
