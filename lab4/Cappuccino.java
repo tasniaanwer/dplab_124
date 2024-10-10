@@ -1,9 +1,7 @@
-class Cappuccino implements Beverage {
-    public String getDescription() {
-        return "Cappuccino";
+class Cappuccino extends AbstractBeverage
+{
+    public Cappuccino() {
+        super("Cappuccino", 100);
     }
 
-    public double cost() {
-        return 300;
-    }
 }
