@@ -1,9 +1,7 @@
-class Espresso implements Beverage {
-    public String getDescription() {
-        return "Espresso";
+class Espresso extends AbstractBeverage
+{
+    public Espresso() {
+        super("Espresso", 150);
     }
 
-    public double cost() {
-        return 100;
-    }
 }
