@@ -2,60 +2,63 @@
 import java.util.Scanner;
 
 public class CoffeeShop {
-    public static void main(String[] args) {
+   public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Beverage beverage = null;
 
+        Map<Integer, Beverage> beverageOptions = new HashMap<>();
+        beverageOptions.put(1, new Espresso());
+        beverageOptions.put(2, new Latte());
+        beverageOptions.put(3, new Cappuccino());
 
-        System.out.println("Choose your beverage:");
-        System.out.println("1. Espresso\n2. Latte\n3. Cappuccino");
+        Map<Integer, Condiment> condimentOptions = new HashMap<>();
+        condimentOptions.put(1, new Milk());
+        condimentOptions.put(2, new Sugar());
+        condimentOptions.put(3, new Cream());
+
+        System.out.println("Choose a beverage:");
+        System.out.println("1. Espresso (150 taka)");
+        System.out.println("2. Latte (300 taka)");
+        System.out.println("3. Cappuccino (100 taka)");
         int beverageChoice = scanner.nextInt();
 
-        switch (beverageChoice) {
-            case 1:
-                beverage = new Espresso();
-                break;
-            case 2:
-                beverage = new Latte();
-                break;
-            case 3:
-                beverage = new Cappuccino();
-                break;
-            default:
-                System.out.println("Invalid choice.");
-                System.exit(0);
+        if (beverageOptions.containsKey(beverageChoice)) {
+            beverage = beverageOptions.get(beverageChoice);
+        } else {
+            System.out.println("Invalid choice. Exiting...");
+            return;
         }
 
+        // Display the initial beverage cost
+        System.out.printf("Base order: %s (Cost: %.2f taka)%n", beverage.getDescription(), beverage.cost());
+        double totalCost = beverage.cost();
 
-        System.out.println("Add condiments (Enter numbers separated by commas):");
-        System.out.println("1. Milk\n2. Whipped Cream\n3. Sugar\n4. No more condiments");
-        scanner.nextLine();
-        String condimentInput = scanner.nextLine();
+        while (true) {
+            System.out.println("Choose a condiment to add (or type 0 to finish):");
+            System.out.println("1. Milk (20 taka)");
+            System.out.println("2. White Sugar (15 taka)");
+            System.out.println("3. Whipped Cream (30 taka)");
+            System.out.println("0. No more condiments / Skip");
 
-        // Step 8: Process all chosen condiments in one go
-        String[] condiments = condimentInput.split(",");
-        for (String condimentChoice : condiments) {
-            switch (condimentChoice.trim()) {
-                case "1":
-                    beverage = new Milk(beverage);
-                    break;
-                case "2":
-                    beverage = new WhippedCream(beverage);
-                    break;
-                case "3":
-                    beverage = new Sugar(beverage);
-                    break;
-                case "4":
-                    // No more condiments, so skip
-                    break;
-                default:
-                    System.out.println("Invalid choice.");
+            int condimentChoice = scanner.nextInt();
+
+            if (condimentChoice == 0) {
+                break;
+            }
+
+            Condiment selectedCondiment = condimentOptions.get(condimentChoice);
+            if (selectedCondiment != null) {
+                beverage.addCondiment(selectedCondiment);
+                totalCost += selectedCondiment.getCost();
+                System.out.printf("Added %s (+%.2f taka)%n", selectedCondiment.getName(), selectedCondiment.getCost());
+                System.out.printf("Current order: %s (Total cost: %.2f taka)%n", beverage.getDescription(), totalCost);
+            } else {
+                System.out.println("Invalid choice, please try again.");
             }
         }
 
-
-        System.out.println("Your order: " + beverage.getDescription());
-        System.out.println("Total cost: $" + beverage.cost());
+        System.out.println("Your final order: " + beverage.getDescription());
+        System.out.printf("Total cost: %.2f taka%n", totalCost);
 
         scanner.close();
     }
